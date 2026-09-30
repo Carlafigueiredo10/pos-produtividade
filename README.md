@@ -5,7 +5,7 @@ Sistema para organizar tempo, comunicação e produtividade usando **Notion**, *
 Trabalho da disciplina **Produtividade e Gestão do Tempo (UniFECAF)**.
 
 - **App no ar:** https://pos-produtividade.vercel.app
-- **Espaço no Notion:** *(link público do Notion aqui)*
+- **Espaço no Notion:** https://towering-felidae-567.notion.site/POS-MEU-SISTEMA-OPERACIONAL-PESSOAL-3eb02869531980729268fa88d890d8f4
 - **Vídeo pitch:** *(link do vídeo aqui)*
 
 > Todos os dados do sistema são de exemplo. Nenhuma tarefa, reunião ou pessoa real de órgão público aparece aqui.
@@ -99,6 +99,9 @@ A justificativa de cada classificação fica registrada na coluna **Sugestão da
 **Uso consciente:** nenhum nome de pessoa, dado real do órgão ou informação sigilosa entra nos prompts.
 
 ## 5. Prints
+
+### Notion: página principal do sistema
+![Notion](docs/prints/notion-hub.png)
 
 ### Painel da semana
 ![Painel](docs/prints/painel.png)
