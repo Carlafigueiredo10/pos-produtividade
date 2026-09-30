@@ -100,6 +100,21 @@ export function calcularPainel(dados: DadosPOS, hoje: string) {
     .map(([rotulo, valor]) => ({ rotulo, valor }))
     .sort((a, b) => b.valor - a.valor);
 
+  // Tarefas para hoje: o que está em andamento ou vence nos próximos 2 dias, Q1 primeiro.
+  const ordemQ = (q: string | null) => (q ? QUADRANTES.indexOf(q as (typeof QUADRANTES)[number]) : 9);
+  const limite = somarDias(hoje, 2);
+  const tarefasHoje = abertas
+    .filter((t) => t.etapa === "Fazendo" || (t.prazo && t.prazo <= limite))
+    .sort((a, b) => ordemQ(a.quadrante) - ordemQ(b.quadrante) || (a.prazo ?? "9").localeCompare(b.prazo ?? "9"))
+    .slice(0, 6);
+
+  // Onde foi o tempo: pomodoros concluídos agrupados pelo quadrante da tarefa.
+  const quadranteDaTarefa = new Map(dados.tarefas.map((t) => [t.id, t.quadrante]));
+  const pomodorosPorQuadrante = QUADRANTES.map((q) => ({
+    rotulo: q,
+    valor: sessoesOk.filter((s) => s.tarefaIds.some((id) => quadranteDaTarefa.get(id) === q)).length,
+  }));
+
   const agendaHoje = dados.compromissos
     .filter((c) => diaDe(c.inicio) === hoje)
     .sort((a, b) => a.inicio.localeCompare(b.inicio));
@@ -131,5 +146,7 @@ export function calcularPainel(dados: DadosPOS, hoje: string) {
     demandasPorOrigem,
     agendaHoje,
     horasReuniaoPorDia,
+    tarefasHoje,
+    pomodorosPorQuadrante,
   };
 }

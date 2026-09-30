@@ -134,24 +134,17 @@ export function Timer({ tarefas, demo }: { tarefas: TarefaOpcao[]; demo: boolean
   return (
     <div className="grade-3">
       <div className="cartao">
-        <div className="linha-botoes" role="tablist" aria-label="Fase">
+        <div className="fases" role="tablist" aria-label="Fase">
           {(Object.keys(FASES) as Fase[]).map((f) => (
-            <button
-              key={f}
-              role="tab"
-              aria-selected={fase === f}
-              className={`botao ${fase === f ? "" : "secundario"}`}
-              onClick={() => trocar(f)}
-              disabled={rodando}
-            >
+            <button key={f} role="tab" aria-selected={fase === f} onClick={() => trocar(f)} disabled={rodando}>
               {FASES[f].rotulo} · {FASES[f].minutos} min
             </button>
           ))}
         </div>
         <div className="timer">
           <span className="fase">{FASES[fase].rotulo}{tarefa && fase === "foco" ? ` · ${tarefa.titulo}` : ""}</span>
-          <span className="relogio" aria-live="off">{mmss(restante)}</span>
-          <div className="anel" aria-hidden>
+          <span className={`relogio ${fase !== "foco" ? "pausa" : ""}`} aria-live="off">{mmss(restante)}</span>
+          <div className={`anel ${fase !== "foco" ? "pausa" : ""}`} aria-hidden>
             <span style={{ width: `${((total - restante) / total) * 100}%` }} />
           </div>
           <div className="linha-botoes">

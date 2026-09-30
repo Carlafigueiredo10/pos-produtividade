@@ -50,7 +50,7 @@ export function Colunas({ dados, unidade, largura = 560 }: { dados: Ponto[]; uni
             <g key={d.rotulo}>
               {d.valor > 0 && (
                 <path
-                  className={`marca ${ativo === i ? "ativa" : ""}`}
+                  className={`marca ${i === dados.length - 1 ? "destaque" : ""} ${ativo === i ? "ativa" : ""}`}
                   d={`M${cx - barra / 2},${y(0)} v${-(h - 4)} q0,-4 4,-4 h${barra - 8} q4,0 4,4 v${h - 4} z`}
                 />
               )}
@@ -93,6 +93,7 @@ export function Linha({ dados, min = 1, max = 5, unidade, largura = 560 }: { dad
   const y = (v: number) => MARGEM.topo + areaA - ((v - min) / (max - min)) * areaA;
   const marcas = Array.from({ length: max - min + 1 }, (_, i) => min + i);
   const caminho = dados.map((d, i) => `${i ? "L" : "M"}${x(i)},${y(d.valor)}`).join(" ");
+  const area = dados.length > 1 ? `${caminho} L${x(dados.length - 1)},${y(min)} L${x(0)},${y(min)} Z` : "";
 
   if (!dados.length) return <p className="vazio">Sem check-ins ainda.</p>;
 
@@ -105,6 +106,7 @@ export function Linha({ dados, min = 1, max = 5, unidade, largura = 560 }: { dad
             <text x={MARGEM.esq - 6} y={y(m) + 4} className="eixo" textAnchor="end">{m}</text>
           </g>
         ))}
+        {area && <path d={area} className="area" />}
         <path d={caminho} className="linha" />
         {ativo !== null && (
           <line x1={x(ativo)} x2={x(ativo)} y1={MARGEM.topo} y2={MARGEM.topo + areaA} className="mira" />

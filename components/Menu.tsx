@@ -2,22 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IconeBrilho, IconeBussola, IconeCaixa, IconeMapa, IconeTimer } from "./Icones";
 
 const ITENS = [
-  { href: "/", rotulo: "Painel" },
-  { href: "/foco", rotulo: "Foco (Pomodoro)" },
-  { href: "/capturar", rotulo: "Capturar" },
-  { href: "/ia", rotulo: "IA" },
-  { href: "/como-funciona", rotulo: "Como funciona" },
+  { href: "/", rotulo: "Painel", Icone: IconeBussola },
+  { href: "/foco", rotulo: "Foco (Pomodoro)", Icone: IconeTimer },
+  { href: "/capturar", rotulo: "Capturar", Icone: IconeCaixa },
+  { href: "/ia", rotulo: "Prompts do Claude", Icone: IconeBrilho },
+  { href: "/como-funciona", rotulo: "Como funciona", Icone: IconeMapa },
 ];
 
 export function Menu() {
   const atual = usePathname();
   return (
     <nav className="menu" aria-label="Seções">
-      {ITENS.map((i) => (
-        <Link key={i.href} href={i.href} aria-current={atual === i.href ? "page" : undefined}>
-          {i.rotulo}
+      {ITENS.map(({ href, rotulo, Icone }) => (
+        <Link key={href} href={href} aria-current={atual === href ? "page" : undefined}>
+          <Icone />
+          {rotulo}
         </Link>
       ))}
     </nav>

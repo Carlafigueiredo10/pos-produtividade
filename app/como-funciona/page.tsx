@@ -1,3 +1,6 @@
+import { Cabecalho } from "@/components/Cabecalho";
+import { IconeMapa } from "@/components/Icones";
+
 export const metadata = { title: "POS · Como funciona" };
 
 const FLUXO = [
@@ -25,18 +28,14 @@ const FERRAMENTAS = [
 export default function ComoFunciona() {
   return (
     <main className="pagina">
-      <div className="cabecalho">
-        <span className="sobretitulo">Fluxo de organização</span>
-        <h1>Como o sistema funciona</h1>
-        <p className="subtitulo">
-          Um ciclo diário curto e um ritual semanal. O Notion guarda os dados, o Claude ajuda a decidir e este app
-          mostra os números e conduz o foco.
-        </p>
-      </div>
+      <Cabecalho icone={<IconeMapa />} titulo="Como o sistema funciona">
+        Um ciclo diário curto e um ritual semanal. O Notion guarda os dados, o Claude ajuda a decidir e este app
+        mostra os números e conduz o foco.
+      </Cabecalho>
 
       <section className="cartao">
         <h2>O ciclo</h2>
-        <ol className="prioridades">
+        <ol className="passos">
           {FLUXO.map((f) => (
             <li key={f.passo}>
               <span><strong>{f.passo}</strong> <span className="nota">· {f.quando}</span><br />{f.texto}</span>
@@ -48,22 +47,22 @@ export default function ComoFunciona() {
       <section className="grade-2">
         <div className="cartao">
           <h2>Métodos</h2>
-          <ul className="agenda">
+          <ul className="lista">
             {METODOS.map((m) => (
-              <li key={m.nome} style={{ gridTemplateColumns: "1fr" }}>
+              <li key={m.nome} style={{ display: "grid", gap: 2 }}>
                 <strong>{m.nome}</strong>
-                <span className="tipo">{m.uso}</span>
+                <span className="nota">{m.uso}</span>
               </li>
             ))}
           </ul>
         </div>
         <div className="cartao">
           <h2>Ferramentas</h2>
-          <ul className="agenda">
+          <ul className="lista">
             {FERRAMENTAS.map((f) => (
-              <li key={f.nome} style={{ gridTemplateColumns: "1fr" }}>
+              <li key={f.nome} style={{ display: "grid", gap: 2 }}>
                 <strong>{f.nome}</strong>
-                <span className="tipo">{f.papel}</span>
+                <span className="nota">{f.papel}</span>
               </li>
             ))}
           </ul>

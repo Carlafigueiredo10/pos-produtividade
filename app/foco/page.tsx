@@ -1,5 +1,7 @@
 import { connection } from "next/server";
 import { Timer } from "@/components/Timer";
+import { Cabecalho } from "@/components/Cabecalho";
+import { IconeTimer } from "@/components/Icones";
 import { carregarDados } from "@/lib/notion";
 import { QUADRANTES } from "@/lib/tipos";
 
@@ -17,14 +19,10 @@ export default async function Foco() {
 
   return (
     <main className="pagina">
-      <div className="cabecalho">
-        <span className="sobretitulo">Técnica Pomodoro · 25 min de foco, 5 de pausa</span>
-        <h1>Bloco de foco</h1>
-        <p className="subtitulo">
-          Escolha uma tarefa de Q1 ou Q2 e comece. Cada pomodoro concluído ou interrompido é gravado na base
-          &quot;Sessões de foco&quot; do Notion e aparece no painel.
-        </p>
-      </div>
+      <Cabecalho icone={<IconeTimer />} titulo="Bloco de foco">
+        Técnica Pomodoro: 25 minutos de foco e 5 de pausa. Escolha uma tarefa de Q1 ou Q2 e comece. Cada pomodoro,
+        concluído ou interrompido, é gravado na base &quot;Sessões de foco&quot; do Notion e aparece no painel.
+      </Cabecalho>
       <Timer tarefas={tarefas} demo={dados.fonte === "demo"} />
     </main>
   );
